@@ -1,0 +1,3 @@
+1. WHEN i run composer require laravel/passport comand then it creat problem.
+so i search the name of problem in google solution is here,
+https://stackoverflow.com/questions/58711707/composer-require-laravel-passport-not-working-in-laravel-5-8
