@@ -50,7 +50,43 @@ class ApiController extends Controller
 
     }
 
-    public function login(){
+    public function login(Request $request){
+
+        // dd($request->all());
+
+        $validatedData = $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+         $user =  User::where('email',$request->email)->first();
+
+         if($user){
+             if(Hash::check($request->password, $user->password)){
+
+                $http = new Client;
+
+                $response = $http->post(url('oauth/token'), [
+                    'form_params' => [
+                        'grant_type' => 'password',
+                        'client_id' => '3',
+                        'client_secret' => 'uScbirqduPCmgixgvm5Cuz26HRMgJhKRJgr91qAT',
+                        'username' =>$request->email,
+                        'password' =>$request->password,
+                        'scope' => '',
+                    ],
+                ]);
+                 return response()->json([
+                    'data' => json_decode((string) $response->getBody(), true),
+                    'user' => $user
+                ]);
+                // return json_decode((string) $response->getBody(), true);
+             }
+
+
+
+
+         }
 
     }
 }
