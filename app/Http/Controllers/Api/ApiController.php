@@ -13,6 +13,8 @@ class ApiController extends Controller
 {
     public function register(Request $request){
 
+        // dd($request->all());
+
 
         $validatedData = $request->validate([
             'name' => 'required',
